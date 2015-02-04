@@ -5,7 +5,7 @@
 # assign1v3.py
 # Programmers:  Kaia Chapman, Karna Johnson, Drew Lane
 # Date Created: January 29, 2015
-# Date of Final Update: February 3, 2015
+# Date of Final Update: February 4, 2015
 ######################################################################################
 # Take 5 integers and calculate the min, max, mean, median and stDev, while validating all
 # user input and offering exit on each input, in order to show the following:
@@ -24,7 +24,6 @@
 import time #for the log_file
 import os #for the press any key to exit
 import math # for calculating median
-
 
 def end(success=False):
     """Arg=optional True for success completion, default False for user-interrupt fail
@@ -91,8 +90,7 @@ def calc(numList):
 def calcStr(calcTup, stDev, calcMedian):
     """Returns formatted string of answers to calculations"""#e) strings (format example)
     return ("\tThe smallest value is : %.8g\n\tThe largest value is: %.8g\n\tThe average value is: %.8g\n\tThe standard deviation is: %.8g.\n\tThe median is: %.8g\nThanks for using this program!\n"%(calcTup[0], calcTup[1], calcTup[2], stDev, calcMedian ))#tuple
-
-
+    
 
 def sort(numList):
     """Sort function with nested if's"""
@@ -125,7 +123,7 @@ def calcMedian(numList):
 
 def stDev(numList, isSample):#a) arithmatic 
     """Args = list of floats, bool isSample
-    return = standard deviation of the population or sample providid
+    return = standard deviation of the population or sample provided
     Why is this here? = I needed some arithmatic still :)"""
     return ((sum([(x-(sum(numList)/float(len(numList))))**2 for x in numList])/ ((len(numList)-1) if isSample else len(numList)))**(1/2))
 
@@ -135,7 +133,7 @@ def log(str1, str2="", str3=""):#h) file output
         log.write("%s%s%s"%(str1, str2, str3))
 
 def main():
-    """main driver"""
+    """Main driver. Using functions created from above"""
     log("\n=====================================\nNew Session beginning ", time.strftime("%c"), "\n")
     print("Welcome to Assignment 1. I will print the minumum, maximum, average value, \nmedian, and standard deviation of exactly 5 numbers.\n\nYou will be prompted to enter 5 numbers - \n\tplease keep your inputs between -1,000,000 and 1,000,000.\n\nYou can enter \"Q\" to Quit at any time.\n")
     numList, sample=getInput()
