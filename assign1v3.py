@@ -25,15 +25,23 @@ import time #for the log_file
 import os #for the press any key to exit
 import math # for calculating median
 
+#Function for the end of the program
 def end(success=False):
     """Arg=optional True for success completion, default False for user-interrupt fail
     calls log with status and and exits immediately on fail, and on success ends on
     char input|enter input if not windows"""
+    #Printing "Goodbye
     print("\nGoodbye.")
+    #if success is true and the os name equals 'nt'
     if success and os.name == 'nt':
+        #use a system pause
         os.system("pause")
+    #If just success is true
     elif success:
+        #asking for user input to press enter to exit the program
         input("Press [Enter] to Exit Program.")#b)if examples
+    #Using the function log() to write to the file 
+    #if success --finish the rest
     log("\nRun Sucessful." if success else "\nUser Terminated Run Early.", "\nProgram Terminating at ", time.strftime("%c"))
     exit()
 
