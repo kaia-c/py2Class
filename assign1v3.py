@@ -42,7 +42,7 @@ def end(success=False):
         input("Press [Enter] to Exit Program.")#b)if examples
     #Using the function log() to write to the file 
     #if success --finish the rest
-    log("\nRun Sucessful." if success else "\nUser Terminated Run Early.", "\nProgram Terminating at ", time.strftime("%c"))
+    log("\nRun Successful." if success else "\nUser Terminated Run Early.", "\nProgram Terminating at ", time.strftime("%c"))
     exit()
 
 def validateInt(rawInput):
