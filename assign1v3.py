@@ -27,9 +27,11 @@ import math # for calculating median
 
 
 def end(success=False):
+    #################################################################################
     """Arg=optional True for success completion, default False for user-interrupt fail
     calls log with status and and exits immediately on fail, and on success ends on
     char input|enter input if not windows"""
+    #################################################################################
     print("\nGoodbye.")
     log("\nRun Sucessful." if success else "\nUser Terminated Run Early.", "\nProgram Terminating at ", time.strftime("%c"))
     if success and os.name == 'nt':#if windows and success ==True
@@ -38,9 +40,11 @@ def end(success=False):
         input("Press [Enter] to Exit Program.")# have user push enter to end run
     exit()#else for sucess==False just exit
 
-def validateInt(rawInput):
+def validateFloat(rawInput):
+    #################################################################################
     """Arg = input str,
     return = float for input of float[-100000,100000]; else returns false | calls end on [q]uit input """
+    #################################################################################
     if len(rawInput) > 20:#return error if user entered to long of string without further checking
         return -1000001 #-1000001, out of range int, is error flag not False because False==0
     testInput=[x for x in rawInput if ord(x) > 44 and ord(x) < 123]#put values in range of numbers/letters and - sign in list, exclude commas + other unneded chars
@@ -57,45 +61,56 @@ def validateInt(rawInput):
     return floatInput if (floatInput >= -1000000 and floatInput <= 1000000 ) else  -1000001  #if float conversion worked return floats in range or error flag for out of range
 
 def getSampleInput():
-    """returns bool sample = true if input represents sample; false if it's a population| calls end on [q]uit input """
+    #################################################################################
+    """returns bool sample = true if input represents sample; 
+    false if it's a population| calls end on [q]uit input """
+    #################################################################################
     sample=population=False    
-    while not sample and not population:
+    while not sample and not population:#run until user gives sample/population chice or [Q]uit input
         rawAns=input("Before we get started, are these numbers:\n\t1)\tSamples from a population, or \n\t2)\tThe entire population\n[Enter 1 or 2] :")
         if str(rawAns).lower()!="q":
-            if len(str(rawAns))<3 and str(rawAns).isdigit():
-                if int(rawAns)==1:#c) 3 nested if's! Yes, there are excuses to get there, but there you go.
+            if len(str(rawAns))<3 and str(rawAns).isdigit():#if they entered a short digit
+                if int(rawAns)==1:#if they indicated sample
                     return True
-                elif int(rawAns)==2:
+                elif int(rawAns)==2:#if they indicated population
                     return False
-        else:
+        else:#if user entered "q", end()
             end()
 
 def getInput():
-    """Loops on optaining and processing valid input, returns list of 5 floats and bool sample (true for sample, false for population)"""
+    #################################################################################
+    """Loops on optaining and processing valid input, 
+    returns list of 5 floats and bool sample (true for sample, false for population)"""
+    #################################################################################
     sample = getSampleInput()
     print("\nThanks! Now, I'll need 5 numbers (examples: 42, 12,525, 12525, -53.12345).\n")
-    numList=[]#g) list
-    while len(numList)<5:#d) ii] while loop
-        num=validateInt(str(input("Enter a number: ")))#e) strings (input example)
-        if num != -1000001:
+    numList=[]
+    while len(numList)<5:
+        num=validateFloat(str(input("Enter a number: ")))
+        if num != -1000001:#if not error flag
             numList.append(num)
         else:
             print("Sorry, I only accept numerical input in the range of += 1,000,000.\n\nPlease try again.\n")
     return (numList, sample)
 
 def calc(numList):
+    #################################################################################
     """arg = list of floats
     return = tuple as (smallest float, largest float, average of floats)"""
+    #################################################################################
     return (min(numList), max(numList), (sum(numList)/float(len(numList))))#f) tuple 
 
 def calcStr(calcTup, stDev, calcMedian):
-    """Returns formatted string of answers to calculations"""#e) strings (format example)
+    #################################################################################
+    """Returns formatted string of answers to calculations"""
+    #################################################################################
     return ("\tThe smallest value is : %.8g\n\tThe largest value is: %.8g\n\tThe average value is: %.8g\n\tThe standard deviation is: %.8g.\n\tThe median is: %.8g\nThanks for using this program!\n"%(calcTup[0], calcTup[1], calcTup[2], stDev, calcMedian ))#tuple
 
 
-#sort function
 def sort(numList):
+    #################################################################################
     """Sort function with nested if's"""
+    #################################################################################
     tmpList=list(numList) # Copy the list into a temporary list
     sortedList=[] # Create a new list to store the sorted list
     lowest=tmpList[0] # This is the first entry for comparison
@@ -112,9 +127,10 @@ def sort(numList):
             i=0 # Reset variable
     return sortedList # Return the sorted List
 
-#Calculating the median
 def calcMedian(numList):
+    #################################################################################
     """Calls sort on list. Calculates the median"""
+    #################################################################################
     #sorting numList with the sort function that we created
     numList = sort(numList)
     #if the length of numList is less than 1
@@ -132,31 +148,38 @@ def calcMedian(numList):
         return float(sum(numList[(len(numList)//2)-1:(len(numList)//2)+1]))//2.0
     
 
-def stDev(numList, isSample):#a) arithmatic 
+def stDev(numList, isSample):
+    #################################################################################
     """Args = list of floats, bool isSample
     return = standard deviation of the population or sample provided
     Formula= square root of (for for i->1 summation to n ((x - x-bar) squared)) / n if population else n-1 for sample)
     Why is this here? = I needed some arithmatic still :)
     """
+    #################################################################################
     return ((sum([(x-(sum(numList)/float(len(numList))))**2 for x in numList])/ ((len(numList)-1) if isSample else len(numList)))**(1/2))
 
-def log(str1, str2="", str3=""):#h) file output
-    """outputs logs of 1-3 provided string parameters to file at log_file.txt"""
+def log(str1, str2="", str3=""):
+    #################################################################################
+    """outputs logs of 1-3 provided string parameters to append to file at log_file.txt"""
+    #################################################################################
     with open("log_file.txt", 'a') as log:
         log.write("%s%s%s"%(str1, str2, str3))
 
 def main():
+    #################################################################################
     """main driver"""
-    log("\n=====================================\nNew Session beginning ", time.strftime("%c"), "\n")
+    #################################################################################
+    log("\n=====================================\nNew Session beginning ", time.strftime("%c"), "\n")#print initial log
+    #print welcome massage
     print("Welcome to Assignment 1. I will print the minumum, maximum, average value, \nmedian, and standard deviation of exactly 5 numbers.\n\nYou will be prompted to enter 5 numbers - \n\tplease keep your inputs between -1,000,000 and 1,000,000.\n\nYou can enter \"Q\" to Quit at any time.\n")
-    numList, sample=getInput()
-    log("Sample:" if sample else "Population:", str(numList))
-    calcTup = calc(numList)
-    calcMed = calcMedian(numList)
-    calcString = calcStr(calcTup, stDev(numList, sample), calcMed)
-    log("\nResults in output:\n", calcString)
-    print(calcString)
-    end(True)    
+    numList, sample=getInput()#get numList and if it's a sample/population from user input
+    log("Sample:" if sample else "Population:", str(numList))#log if sample/population and the numList
+    calcTup = calc(numList)#get a tuple == (min of numList, max of numList, mean of numList)
+    calcMed = calcMedian(numList)#get the median of the numList
+    calcString = calcStr(calcTup, stDev(numList, sample), calcMed)#get a formatted string of calculations in the tuple, by calling stDev, and in the calcMad var
+    log("\nResults in output:\n", calcString)#log the formatted string
+    print(calcString)#print the formatted string for user
+    end(True) #end, indicating success   
 main()
 
 
