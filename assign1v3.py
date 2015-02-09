@@ -96,21 +96,21 @@ def calcStr(calcTup, stDev, calcMedian):
 
 def sort(numList):
     """Sort function with nested if's"""
-    tmpList=list(numList)
-    sortedList=[]
-    lowest=tmpList[0]
-    i=0
-    while len(tmpList) > 0:
-        if tmpList[i] < lowest:
-            lowest = tmpList[i]
-        i+=1
-        if i == len(tmpList):
-            sortedList.append(lowest)
-            tmpList.remove(lowest)
-            if tmpList:
-                lowest = tmpList[0]
-            i=0
-    return sortedList
+    tmpList=list(numList) # Copy the list into a temporary list
+    sortedList=[] # Create a new list to store the sorted list
+    lowest=tmpList[0] # This is the first entry for comparison
+    i=0 # Set loop variable to zero
+    while len(tmpList) > 0: # Start looping through list
+        if tmpList[i] < lowest: # Compare values
+            lowest = tmpList[i] # Assign value if index is smaller
+        i+=1 # Increment loop
+        if i == len(tmpList): # Check if we have tested all numbers
+            sortedList.append(lowest) # Add value to sorted list
+            tmpList.remove(lowest) # Remove value from temporary list
+            if tmpList: # Check if temporary list is zero
+                lowest = tmpList[0] # Assign variable to first entry
+            i=0 # Reset variable
+    return sortedList # Return the sorted List
 
 def calcMedian(numList):
     """Calls sort on list. Calculates the median"""
