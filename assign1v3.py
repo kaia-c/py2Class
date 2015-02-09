@@ -93,7 +93,7 @@ def calcStr(calcTup, stDev, calcMedian):
     return ("\tThe smallest value is : %.8g\n\tThe largest value is: %.8g\n\tThe average value is: %.8g\n\tThe standard deviation is: %.8g.\n\tThe median is: %.8g\nThanks for using this program!\n"%(calcTup[0], calcTup[1], calcTup[2], stDev, calcMedian ))#tuple
 
 
-
+#sort function
 def sort(numList):
     """Sort function with nested if's"""
     tmpList=list(numList) # Copy the list into a temporary list
@@ -112,15 +112,24 @@ def sort(numList):
             i=0 # Reset variable
     return sortedList # Return the sorted List
 
+#Calculating the median
 def calcMedian(numList):
     """Calls sort on list. Calculates the median"""
+    #sorting numList with the sort function that we created
     numList = sort(numList)
+    #if the length of numList is less than 1
     if len(numList) < 1:
+        #return none
         return None
+    #if the length of numList modulus 2 equals 1    
     if len(numList) % 2 == 1:
-         return numList[((len(numList)+1)//2)-1]
+        #return numList with the length of numList plus 1 divided by 2 minus 1 in a list
+        return numList[((len(numList)+1)//2)-1]
+    #if the length of numList modulus 2 equals 0   
     if len(numList) % 2 ==0:
-        return float(sum(numList[(len(numList)//2)-1:(len(numLst)//2)+1]))//2.0
+        #return the float of the sum of numList in a list of the length of numList divided by 2 minus 1
+        #slicing the length of numList divided by 2 plus 1 all divided by 2
+        return float(sum(numList[(len(numList)//2)-1:(len(numList)//2)+1]))//2.0
     
 
 def stDev(numList, isSample):#a) arithmatic 
