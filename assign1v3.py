@@ -5,7 +5,7 @@
 # assign1v3.py
 # Programmers:  Kaia Chapman, Karna Johnson, Drew Lane
 # Date Created: January 29, 2015
-# Date of Final Update: February 3, 2015
+# Date of Final Update: February 9, 2015
 ######################################################################################
 # Take 5 integers and calculate the min, max, mean, median and stDev, while validating all
 # user input and offering exit on each input, in order to show the following:
@@ -33,21 +33,21 @@ def end(success=False):
     char input|enter input if not windows"""
     #################################################################################
     print("\nGoodbye.")
-    log("\nRun Sucessful." if success else "\nUser Terminated Run Early.", "\nProgram Terminating at ", time.strftime("%c"))
+    log("\nRun Successful." if success else "\nUser Terminated Run Early.", "\nProgram Terminating at ", time.strftime("%c"))
     if success and os.name == 'nt':#if windows and success ==True
         os.system("pause")#use system pause
     elif success:#if not windows and success ==True
         input("Press [Enter] to Exit Program.")# have user push enter to end run
-    exit()#else for sucess==False just exit
+    exit()#else for success==False just exit
 
 def validateFloat(rawInput):
     #################################################################################
     """Arg = input str,
     return = float for input of float[-100000,100000]; else returns false | calls end on [q]uit input """
     #################################################################################
-    if len(rawInput) > 20:#return error if user entered to long of string without further checking
+    if len(rawInput) > 20:#return error if user entered too long of string without further checking
         return -1000001 #-1000001, out of range int, is error flag not False because False==0
-    testInput=[x for x in rawInput if ord(x) > 44 and ord(x) < 123]#put values in range of numbers/letters and - sign in list, exclude commas + other unneded chars
+    testInput=[x for x in rawInput if ord(x) > 44 and ord(x) < 123]#put values in range of numbers/letters and - sign in list, exclude commas + other unneeded chars
     rawInput=""
     for i in testInput:#c) i) for loop puts chars in list into a string
         rawInput+=i
@@ -65,32 +65,41 @@ def getSampleInput():
     """returns bool sample = true if input represents sample; 
     false if it's a population| calls end on [q]uit input """
     #################################################################################
+    #Setting sample and population to false
     sample=population=False    
-    while not sample and not population:#run until user gives sample/population chice or [Q]uit input
+    while not sample and not population:#run until user gives sample/population choice or [Q]uit input
+        #asking for the input of either samples of the population or the entire population
         rawAns=input("Before we get started, are these numbers:\n\t1)\tSamples from a population, or \n\t2)\tThe entire population\n[Enter 1 or 2] :")
-        if str(rawAns).lower()!="q":
+        if str(rawAns).lower()!="q": #if the answer is not equal to 'q'
             if len(str(rawAns))<3 and str(rawAns).isdigit():#if they entered a short digit
                 if int(rawAns)==1:#if they indicated sample
-                    return True
+                    return True #return true
                 elif int(rawAns)==2:#if they indicated population
-                    return False
+                    return False #return false
         else:#if user entered "q", end()
             end()
 
 def getInput():
     #################################################################################
-    """Loops on optaining and processing valid input, 
+    """Loops on obtaining and processing valid input, 
     returns list of 5 floats and bool sample (true for sample, false for population)"""
     #################################################################################
-    sample = getSampleInput()
+    sample = getSampleInput() #assigning sample to the function getSampleInput()
+    #a print statement to ask for 5 numbers
     print("\nThanks! Now, I'll need 5 numbers (examples: 42, 12,525, 12525, -53.12345).\n")
-    numList=[]
+    numList=[] #list
+    #While the length of numList is less than 5
     while len(numList)<5:
+        #assigning num to the function validateFloat()
         num=validateFloat(str(input("Enter a number: ")))
         if num != -1000001:#if not error flag
+            #add num to numList
             numList.append(num)
+        #otherwise    
         else:
+            #printing a statement to make sure that only numerical values are inputed
             print("Sorry, I only accept numerical input in the range of += 1,000,000.\n\nPlease try again.\n")
+    #return numList and sample
     return (numList, sample)
 
 def calc(numList):
@@ -170,13 +179,13 @@ def main():
     """main driver"""
     #################################################################################
     log("\n=====================================\nNew Session beginning ", time.strftime("%c"), "\n")#print initial log
-    #print welcome massage
+    #print welcome message
     print("Welcome to Assignment 1. I will print the minumum, maximum, average value, \nmedian, and standard deviation of exactly 5 numbers.\n\nYou will be prompted to enter 5 numbers - \n\tplease keep your inputs between -1,000,000 and 1,000,000.\n\nYou can enter \"Q\" to Quit at any time.\n")
     numList, sample=getInput()#get numList and if it's a sample/population from user input
     log("Sample:" if sample else "Population:", str(numList))#log if sample/population and the numList
     calcTup = calc(numList)#get a tuple == (min of numList, max of numList, mean of numList)
     calcMed = calcMedian(numList)#get the median of the numList
-    calcString = calcStr(calcTup, stDev(numList, sample), calcMed)#get a formatted string of calculations in the tuple, by calling stDev, and in the calcMad var
+    calcString = calcStr(calcTup, stDev(numList, sample), calcMed)#get a formatted string of calculations in the tuple, by calling stDev, and in the calcMed variable
     log("\nResults in output:\n", calcString)#log the formatted string
     print(calcString)#print the formatted string for user
     end(True) #end, indicating success   
