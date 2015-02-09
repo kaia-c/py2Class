@@ -162,7 +162,7 @@ def stDev(numList, isSample):
     """Args = list of floats, bool isSample
     return = standard deviation of the population or sample provided
     Formula= square root of (for for i->1 summation to n ((x - x-bar) squared)) / n if population else n-1 for sample)
-    Why is this here? = I needed some arithmatic still :)
+    Why is this here? = I needed some arithmetic still :)
     """
     #################################################################################
     return ((sum([(x-(sum(numList)/float(len(numList))))**2 for x in numList])/ ((len(numList)-1) if isSample else len(numList)))**(1/2))
@@ -180,7 +180,7 @@ def main():
     #################################################################################
     log("\n=====================================\nNew Session beginning ", time.strftime("%c"), "\n")#print initial log
     #print welcome message
-    print("Welcome to Assignment 1. I will print the minumum, maximum, average value, \nmedian, and standard deviation of exactly 5 numbers.\n\nYou will be prompted to enter 5 numbers - \n\tplease keep your inputs between -1,000,000 and 1,000,000.\n\nYou can enter \"Q\" to Quit at any time.\n")
+    print("Welcome to Assignment 1. I will print the minimum, maximum, average value, \nmedian, and standard deviation of exactly 5 numbers.\n\nYou will be prompted to enter 5 numbers - \n\tplease keep your inputs between -1,000,000 and 1,000,000.\n\nYou can enter \"Q\" to Quit at any time.\n")
     numList, sample=getInput()#get numList and if it's a sample/population from user input
     log("Sample:" if sample else "Population:", str(numList))#log if sample/population and the numList
     calcTup = calc(numList)#get a tuple == (min of numList, max of numList, mean of numList)
